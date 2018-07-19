@@ -1,0 +1,36 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">Edu project</a>
+
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'teachers' %}">Преподаватели</a></li>
+                <li><a href="{% url 'classes' %}">Предметы</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}?next={{ request.path }}">Разлогиниться</a></li>
+                    {#                    TODO почему-то не видит has_group#}
+                    {#                    {% if request.user|has_group:'Работник деканата' %}#}
+                    <li><a href="{% url 'schedules' %}">Присланные расписания</a></li>
+                    {#                    {% endif %}#}
+                {% else %}
+                    <li><a href="{% url 'login' %}?next={{ request.path }}">Залогиниться</a></li>
+                    <li><a href="{% url 'signup' %}">Зарегистрироваться</a></li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li style="color: white">Пользователь: {{ user.get_username }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,51 @@
+{% extends 'base_generic.html' %}
+{% block title %}<title>Преподаватели</title>{% endblock %}
+{% load static %}
+{% block content %}
+    <script src="{% static 'js/teacher_ajax.js' %}" type="text/javascript"></script>
+    <table class="table table-bordered">
+        <thead>
+        <tr class="active">
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Кнопка для удаления</th>
+        </tr>
+        </thead>
+        <tbody id="id_teachers">
+        {% for teacher in teacher_list %}
+            <tr>
+                <td>{{ teacher.last_name }} </td>
+                <td>{{ teacher.first_name }} </td>
+                <td>{{ teacher.patronymic }} </td>
+                <td>
+                    <button type="button" value="{{ teacher.id }}" class="btn btn-danger deleteTeacherBtn"
+                            id="id_delete_teacher">
+                        Удалить
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {#    TODO почему-то не видит has_group#}
+    {#    {% if request.user|has_group:'Работник деканата' %}#}
+    <form method="post" id="teacher_form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_last_name">Фамилия</label>
+            {{ form.last_name }}
+        </div>
+        <div class="form-group">
+            <label for="id_first_name">Имя</label>
+            {{ form.first_name }}
+        </div>
+        <div class="form-group">
+            <label for="id_patronymic">Отчество</label>
+            {{ form.patronymic }}
+        </div>
+    </form>
+    <button type="submit" class="btn btn-primary" id="id_add_teacher">
+        Сохранить
+    </button>
+{% endblock %}

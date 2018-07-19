@@ -1,0 +1,62 @@
+{% extends 'base_generic.html' %}
+{% block title %}<title>Расписания</title>{% endblock %}
+{% block content %}
+    {#    {% if request.user|has_group:'Работник деканата' %}#}
+    <table class="table table-bordered">
+        <thead>
+        <tr class="active">
+            <th>Время начала пары</th>
+            <th>Время конца пары</th>
+            <th>Название пары</th>
+            <th>Порядковый номер пары</th>
+            <th>Тип пары</th>
+            <th>День недели</th>
+            <th>Номер/название аудитории</th>
+            <th>Время создания расписания</th>
+            <th>Преподаватель</th>
+            <th>ID пользователя</th>
+        </tr>
+        </thead>
+        <tbody id="id_schedules">
+        {% for schedule in schedule_list %}
+            <tr>
+                <td>{{ schedule.class_begin_time }} </td>
+                <td>{{ schedule.class_end_time }} </td>
+                <td>{{ schedule.class_name }} </td>
+                <td>{{ schedule.class_serial_number }} </td>
+                <td>{{ schedule.class_type }} </td>
+                <td>{{ schedule.day_of_week }} </td>
+                <td>{{ schedule.room_name }} </td>
+                <td>{{ schedule.schedule_creation_time }} </td>
+                <td>{{ schedule.teacher_name }} </td>
+                <td>{{ schedule.user_ID }} </td>
+                {#                <td>#}
+                {#                    <button type="button" value="{{ teacher.id }}" class="btn btn-danger deleteTeacherBtn"#}
+                {#                            id="id_delete_teacher">#}
+                {#                        Удалить#}
+                {#                    </button>#}
+                {#                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {#    <form method="post" id="teacher_form">#}
+    {#        {% csrf_token %}#}
+    {#        <div class="form-group">#}
+    {#            <label for="id_last_name">Фамилия</label>#}
+    {#            {{ form.last_name }}#}
+    {#        </div>#}
+    {#        <div class="form-group">#}
+    {#            <label for="id_first_name">Имя</label>#}
+    {#            {{ form.first_name }}#}
+    {#        </div>#}
+    {#        <div class="form-group">#}
+    {#            <label for="id_patronymic">Отчество</label>#}
+    {#            {{ form.patronymic }}#}
+    {#        </div>#}
+    {#    </form>#}
+    {#    <button type="submit" class="btn btn-primary" id="id_add_teacher">#}
+    {#        Сохранить#}
+    {#    </button>#}
+{% endblock %}

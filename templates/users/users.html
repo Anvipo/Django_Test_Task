@@ -1,0 +1,23 @@
+{% extends '../../static/templatetags/../base_generic.html' %}
+{% block title %}<title>Пользователи</title>{% endblock %}
+{% block content %}
+    <table class="table table-bordered">
+        <thead>
+        <tr class="active">
+            <th>VK id</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ }}
+        {% for user in users_list %}
+            <tr>
+                <td>{{ teacher.vk_id }} </td>
+                <td>{{ teacher.last_name }} </td>
+                <td>{{ teacher.first_name }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

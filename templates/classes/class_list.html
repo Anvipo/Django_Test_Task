@@ -1,0 +1,55 @@
+{% extends 'base_generic.html' %}
+{% block title %}<title>Предметы</title>{% endblock %}
+{% load static %}
+{% block content %}
+    <script src="{% static 'js/class_ajax.js' %}" type="text/javascript"></script>
+    <table class="table table-bordered">
+        <thead>
+        <tr class="active">
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Преподаватель</th>
+            <th>Кнопка для удаления</th>
+        </tr>
+        </thead>
+        <tbody id="id_classes">
+        {% for class in class_list %}
+            <tr>
+                <td>{{ class.title }} </td>
+                <td>{{ class.description }} </td>
+                <td>{{ class.teacher }} </td>
+                <td>
+                    <button type="button" value="{{ class.title }}" class="btn btn-danger deleteClassBtn"
+                            id="id_delete_class">
+                        Удалить
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {#    {% if request.user|has_group:'Работник деканата' %}#}
+    <form method="post" id="class_form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_title">Название</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group">
+            <label for="id_description">Описание</label>
+            {{ form.description }}
+        </div>
+        <div class="form-group">
+            <label for="id_teacher">Преподаватель</label>
+            <select id="id_teacher" class="form-control" name="teacher">
+                <option value="None">---------</option>
+                {% for teacher in teacher_list %}
+                    <option value="{{ teacher }}">{{ teacher }}</option> %}
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+    <button type="submit" class="btn btn-primary addClassBtn" id="id_add_class">
+        Сохранить
+    </button>
+{% endblock %}
